@@ -1,15 +1,15 @@
-//
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ACMEImobilliaria {
     private Condominio condominio;
     private Scanner entrada;
+    private Clientela clientes;
 
     public ACMEImobilliaria() {
         condominio = new Condominio();
         entrada = new Scanner(System.in);
+        clientes = new Clientela();
     }
 
     /**
@@ -38,7 +38,13 @@ public class ACMEImobilliaria {
                     listarTodasCasas();
                     break;
                 case 4:
-                    removeCasa();
+                    cadastrarCliente();
+                    break;
+                case 5:
+                    cadastrarCompra();
+                    break;
+                case 6:
+                    listarCasasPorCliente();
                     break;
                 case 99:
                     easterEgg();
@@ -59,8 +65,9 @@ public class ACMEImobilliaria {
         System.out.println("[1] Cadastrar uma casa");
         System.out.println("[2] Consultar uma casa");
         System.out.println("[3] Listar todas as casas");
-        System.out.println("[4] Remover uma casa");
-
+        System.out.println("[4] Cadastrar novo cliente");
+        System.out.println("[5] Cadastrar compra de casa para um cliente");
+        System.out.println("[6] Listar as casas compradas por um cliente");
     }
 
     /**
@@ -122,29 +129,6 @@ public class ACMEImobilliaria {
         }
     }
 
-    private void removeCasa(){
-        System.out.println("Digite o endereco a ser removida:");
-        String endereco = entrada.nextLine();
-
-        ArrayList<Casa> listaCasas = condominio.consultarTodasCasas();
-        Casa casa = condominio.consultarCasaEndereco(endereco);
-
-        if (casa == null)
-            System.out.println("Casa nao encontrada.");
-        else{
-            for(int i=0; i < listaCasas.size();i++){
-                Casa aux = listaCasas.get(i);
-                    if(aux == casa){
-                        boolean resultado = condominio.removeCasa(aux);
-                            if (resultado)
-                             System.out.println("Casa removida!");
-                            else
-                              System.out.println("Erro na remocao!");
-                    }
-            }
-        }
-    }
-
     /**
      * Opcao oculta
      * Pre-cadastra algumas casas
@@ -162,5 +146,60 @@ public class ACMEImobilliaria {
         condominio.cadastrarCasa(casa);
     }
 
+    /*Cadastrar novo cliente */
+
+    private void cadastrarCliente(){
+    
+        System.out.print("Digite o nome do cliente: ");
+        String nome = entrada.nextLine();
+
+        Cliente cAux = new Cliente(nome);
+
+        boolean resultado = clientes.cadastrarCliente(cAux);
+
+        if (resultado)
+            System.out.println("Cliente cadastrado!");
+        else
+            System.out.println("Erro no cadastramento!");
+    }
+
+    /*Cadastrar compra de casa para um cliente */
+
+    private void cadastrarCompra(){
+
+        System.out.print("Digite o nome do cliente: ");
+        String nome = entrada.nextLine();
+
+        System.out.print("Digite o endereço da casa comprada pelo cliente: ");
+        String endereco = entrada.nextLine();
+
+            if(clientes.consultarClientePorNome(nome) != null){
+                Cliente c = clientes.consultarClientePorNome(nome);
+                Casa casa = condominio.consultarCasaEndereco(endereco);
+                 c.compraCasa(casa);
+
+            }
+    }
+
+    /*Listar casas compradas por um cliente */
+
+    private void listarCasasPorCliente(){
+
+        System.out.print("Digite o nome do client para consultar as casas: ");
+        String nome = entrada.nextLine();
+
+        Cliente aux = clientes.consultarClientePorNome(nome);
+
+        for (Casa casa : aux.consultarCasasCliente()){
+            
+            Casa c1 = casa;
+            System.out.println("Tamanho: " + c1.getTamanho());
+            System.out.println("Valor: " + c1.getValor());
+            System.out.println("Endereco: " + c1.getEndereco());
+            System.out.println("--------------------------");
+
+        }
+
+    }
 }
 

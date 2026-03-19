@@ -15,8 +15,7 @@ public class Condominio {
 
     // Operacao "R" - consultar
     public Casa consultarCasaEndereco(String endereco) {
-        for(int i=0; i<casas.size();i++) {
-            Casa aux = casas.get(i);
+        for(Casa aux : casas) {
             if(aux.getEndereco().equals(endereco))
                 return aux;
         }
@@ -35,8 +34,7 @@ public class Condominio {
     public ArrayList<Casa> consultarTodasCasas() {
         // ArrayList auxiliar para o retorno
         ArrayList<Casa> aux = new ArrayList<>();
-        for(int i=0; i< casas.size(); i++) {
-            Casa casa = casas.get(i);
+        for(Casa casa : casas) {
             aux.add(casa);
         }
         return aux;
