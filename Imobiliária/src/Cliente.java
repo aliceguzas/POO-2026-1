@@ -7,6 +7,7 @@ public class Cliente {
 
     public Cliente(String nome){
         this.nomeCliente = nome;
+        casas = new ArrayList<Casa>();
     }
 
     public String getNome(){
@@ -14,7 +15,6 @@ public class Cliente {
     }
 
     public void compraCasa(Casa c){
-        casas = new ArrayList<Casa>();
         casas.add(c);
     }
 
