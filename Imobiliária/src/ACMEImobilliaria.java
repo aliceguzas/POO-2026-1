@@ -173,10 +173,14 @@ public class ACMEImobilliaria {
         System.out.print("Digite o endereço da casa comprada pelo cliente: ");
         String endereco = entrada.nextLine();
 
-            if(clientes.consultarClientePorNome(nome) != null){
-                Cliente c = clientes.consultarClientePorNome(nome);
-                Casa casa = condominio.consultarCasaEndereco(endereco);
-                 c.compraCasa(casa);
+        Casa casa = condominio.consultarCasaEndereco(endereco);
+
+            if (casa == null){
+                 System.out.print("Casa não encontrada");
+            } else if (clientes.consultarClientePorNome(nome) != null){
+                        Cliente c = clientes.consultarClientePorNome(nome);
+                        c.compraCasa(casa);
+                        System.out.print("Compra cadastrada");     
 
             }
     }
