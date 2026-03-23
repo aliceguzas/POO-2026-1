@@ -194,14 +194,19 @@ public class ACMEImobilliaria {
 
         Cliente aux = clientes.consultarClientePorNome(nome);
 
-        for (Casa casa : aux.consultarCasasCliente()){
-            
-            Casa c1 = casa;
-            System.out.println("Tamanho: " + c1.getTamanho());
-            System.out.println("Valor: " + c1.getValor());
-            System.out.println("Endereco: " + c1.getEndereco());
-            System.out.println("--------------------------");
+        if(aux == nul){
+             System.out.print("Cliente não cadastrado");
+        } else{
 
+            for (Casa casa : aux.consultarCasasCliente()){
+                
+                Casa c1 = casa;
+                System.out.println("Tamanho: " + c1.getTamanho());
+                System.out.println("Valor: " + c1.getValor());
+                System.out.println("Endereco: " + c1.getEndereco());
+                System.out.println("--------------------------");
+    
+            }
         }
 
     }
